@@ -1549,7 +1549,18 @@ class AutoBalance_PlayerScript : public PlayerScript
         void OnLogin(Player *Player) override
         {
             if (EnableGlobal && Announcement) {
-                ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00AutoBalance |rmodule.");
+                WorldSession* session = Player->GetSession();
+                switch (session->GetSessionDbLocaleIndex())
+                {
+                case LOCALE_ruRU:
+                {
+                    ChatHandler(Player->GetSession()).SendSysMessage("На сервере запущен модуль |cff4CFF00AutoBalance |r");
+                    break;
+                }
+                default:
+                    ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00AutoBalance |rmodule.");
+                    break;
+                }
             }
         }
 
